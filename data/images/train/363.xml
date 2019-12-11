@@ -1,0 +1,38 @@
+<annotation>
+	<folder>3</folder>
+	<filename>363.JPG</filename>
+	<path>/home/kosala/BISMILLAH_DISERTASI/dataset/PRIMER fiX_resize/4 SUBSET/3/363.JPG</path>
+	<source>
+		<database>Unknown</database>
+	</source>
+	<size>
+		<width>1024</width>
+		<height>768</height>
+		<depth>3</depth>
+	</size>
+	<segmented>0</segmented>
+	<object>
+		<name>plate</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>535</xmin>
+			<ymin>350</ymin>
+			<xmax>641</xmax>
+			<ymax>389</ymax>
+		</bndbox>
+	</object>
+	<object>
+		<name>logo</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>563</xmin>
+			<ymin>279</ymin>
+			<xmax>607</xmax>
+			<ymax>322</ymax>
+		</bndbox>
+	</object>
+</annotation>
