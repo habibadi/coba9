@@ -2,7 +2,7 @@ name: Call API
 
 on:
   schedule:
-    - cron: "7 1 * * *"
+    - cron: "* * * * *"
   workflow_dispatch:
 
 jobs:
