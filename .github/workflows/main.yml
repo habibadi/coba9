@@ -19,5 +19,5 @@ jobs:
           API_ENDPOINT: ${{ secrets.API_ENDPOINT }}
         run: |
           echo "Calling API..."
-          curl -X GET http://universities.hipolabs.com/search?country=United+States
+          curl -X GET 
 
