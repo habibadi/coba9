@@ -15,12 +15,19 @@ jobs:
         run: echo "NOW=$(date +'%Y-%m-%dT%H:%M:%S')" >> $GITHUB_ENV
       - name: Echo current date
         run: echo $NOW # Gives "2022-12-11T01:42:20"
+      - id: 'secrets-staging'
+        name: Fetch GSM Secrets for staging
+        uses: 'google-github-actions/get-secretmanager-secrets@v1'
+        with:
+          min_mask_length: '4'
+          secrets: |-
+           request_and_api_key:${{ gtl-environment }}/gtl-trex
       - name: Call API
         env:
           API_ENDPOINT: ${{ secrets.API_ENDPOINT }}
         run: |
                 curl --location --request POST 'https://staging-tdf.ep.tokopedia.com/api/v2/project/9074d777-b77c-4b46-b5cb-2d394c90318a/post-queue?api_key=10.b35bb813570ee427b70fa073125e623501dea41e399e2fe9b1' \
-                --header 'Cookie: _UUID_NONLOGIN_=af78deef97caef0ddb5bfa56db7bb9fb; _UUID_NONLOGIN_.sig=Ck7X2cFXTtGcO1ZDElyZE9x0QR0; _abck=E04917D3A835D87B85EDEB3547657BD4~-1~YAAQtdt5LdkfFtCDAQAAET/B6ggkpSrENGOU9f5THyWJRecP5yHJzCANrzbYSfK+BdUu0PuJtKKeS8IPmGU+iIrD6aTafly8oDGC6g3xdp/id3sh0IMrDS6ha/ORxTYSNNkdyN9zzUU5IJd3KTv1xGMFtjBQzJ1wAq4gyEOsCL8s5zsZHA/AFTi9vV2f7Bic4Uk9FCQaZBdXoXBfLqpr5w1Q7jWD1jBWIgIJlPDGpu0lp5T/V3/Zv0Hk1E5nMN9KktwY9oAe1FUBTiOg9C+8JamdyhfqzxosT8CRm8ls1WFbByUSAyZ4ziECpxms28DHVYnTHop9mxydn2QzuBjq/2ihzDuxU54nqOJUYcp/FxC1Ra29KpNA2+VI1XjzmQROtP7CCAa212ndVg==~-1~-1~-1; _abck=85772C118254448829FE8405E519905F~-1~YAAQH3FidjfIJmyHAQAA7IH5kQmhyCV7ptCXbfu40g9iGhOSsQ6qbSbNV8bEE89KZk/7cmO+PTYu9yBz/iR06Zbpcszuw0KZSUduNyccKT66daDBwScT5BWz0HRsFCKhEvRKahntsp9gVATm9cqdMQIcpdjHMr9pD7U78fXksnzztVSyiASaW/d1ZoSElHVxWkXBvms9kSz6ARdMzqJT5k9FDDngxHES7ZZJUDbHFrSyY0IRDVH+7iTwCvWJEfbnvZsPw+l0/8qNTmsw4hijzQCi3o9TlY4qR5Q7y4QIr1jRwpmuN73RrupWNM255sTVqV6Qe1aWmo5Q3h/MIvJZzCOAgZKc/x4octsEIGTfj/5zv2waoO8jqmnmalgNr/E=~-1~-1~-1' \
+                --header '${{ steps.secrets-production.outputs.request_and_api_key }}' \
                 --form 'test_type="20"' \
                 --form 'option="\"\""' \
                 --form 'branch="main"' \
