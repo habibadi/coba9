@@ -1,35 +1,18 @@
-name: Call API
+name: Ping IP Address
 
 on:
-  workflow_dispatch:
-    inputs:
-      message:
-        required: true
+  push:
+    branches:
+      - main  # Ubah ini sesuai dengan nama cabang Anda
 
 jobs:
-  call-api:
+  ping:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Set current date as env variable
-        run: echo "NOW=$(date +'%Y-%m-%dT%H:%M:%S')" >> $GITHUB_ENV
-      - name: Echo current date
-        run: echo $NOW # Gives "2022-12-11T01:42:20"
-      - id: 'secrets-staging'
-        name: Fetch GSM Secrets for staging
-        uses: 'google-github-actions/get-secretmanager-secrets@v1'
-        with:
-          min_mask_length: '4'
-          secrets: |-
-           request_and_api_key:${{ gtl-environment }}/gtl-trex
-      - name: Call API
-        env:
-          API_ENDPOINT: ${{ secrets.API_ENDPOINT }}
-        run: |
-                curl --location --request POST 'https://staging-tdf.ep.tokopedia.com/api/v2/project/9074d777-b77c-4b46-b5cb-2d394c90318a/post-queue?api_key=10.b35bb813570ee427b70fa073125e623501dea41e399e2fe9b1' \
-                --header '${{ steps.secrets-production.outputs.request_and_api_key }}' \
-                --form 'test_type="20"' \
-                --form 'option="\"\""' \
-                --form 'branch="main"' \
-                --form 'suite="-DsuiteXmlFile=${{ github.event.inputs.message }} -DIS_TEL=true"' \
-                --form 'tags=$NOW'
+    - name: Check out code
+      uses: actions/checkout@v2
+
+    - name: Ping IP Address
+      run: ping -c 4 google.com  # Gantilah <ALAMAT_IP> dengan alamat IP yang ingin Anda ping
+
