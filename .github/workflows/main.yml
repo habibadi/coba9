@@ -1,9 +1,9 @@
-name: Ping IP Address
+name: Ping Google
 
 on:
   push:
     branches:
-      - main  # Ubah ini sesuai dengan nama cabang Anda
+      - main
 
 jobs:
   ping:
@@ -13,6 +13,5 @@ jobs:
     - name: Check out code
       uses: actions/checkout@v2
 
-    - name: Ping IP Address
-      run: ping -c 4 google.com  # Gantilah <ALAMAT_IP> dengan alamat IP yang ingin Anda ping
-
+    - name: Ping Google
+      run: ping -c 4 google.com
